@@ -14,7 +14,7 @@ dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 # Add COPR and TERRA repos
 dnf5 -y copr enable avengemedia/dms-git 
 dnf5 -y copr enable yalter/niri-git
-dnf5 -y copr enable nett00n/hyprland #lionheartp/Hyprland 
+dnf5 -y copr enable lionheartp/Hyprland #nett00n/hyprland
 dnf5 -y copr enable ublue-os/akmods 
 dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
