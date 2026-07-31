@@ -43,6 +43,7 @@ systemctl mask bootc-fetch-apply-updates.timer #turn off update timer
 # Ly login manager
 systemctl disable getty@tty2.service
 semanage fcontext -a -t xdm_exec_t /usr/bin/ly
+chcon system_u:object_r:xdm_exec_t:s0 /usr/bin/ly
 restorecon -v /usr/bin/ly
 
 # Plymouth prettiness
