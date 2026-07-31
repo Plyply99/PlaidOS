@@ -34,17 +34,16 @@ dnf5 -y install gnome-shell
 dnf5 -y remove alacritty fuzzel kitty mako swaybg swayidle swaylock SwayNotificationCenter waybar wofi
 dnf5 clean all
 
+# Ly login manager
+#systemctl disable getty@tty2.service
+#semanage fcontext -a -t xdm_exec_t /usr/bin/ly
+#restorecon -v /usr/bin/ly
+
 #### Example for enabling a System Unit File
-systemctl disable gdm # Enabled automatically when installing gnome
-systemctl enable avahi-daemon.service firewalld.service NetworkManager.service ly@tty2.service rtkit-daemon.service plymouth-start.service
+#systemctl disable gdm  ly@tty2.service # Enabled automatically when installing gnome
+systemctl enable avahi-daemon.service firewalld.service NetworkManager.service rtkit-daemon.service plymouth-start.service
 systemctl enable cups.socket
 systemctl mask bootc-fetch-apply-updates.timer #turn off update timer
-
-# Ly login manager
-systemctl disable getty@tty2.service
-semanage fcontext -a -t xdm_exec_t /usr/bin/ly
-chcon system_u:object_r:xdm_exec_t:s0 /usr/bin/ly
-restorecon -v /usr/bin/ly
 
 # Plymouth prettiness
 systemctl enable plymouth-start.service
