@@ -10,6 +10,8 @@ dnf5 -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 dnf5 -y install @multimedia
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing --enablerepo=rpmfusion-free-updates-testing
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+dnf5 -y install libavcodec-freeworld
+#dnf --setopt=obsoletes=0 install gstreamer1-vaapi
 
 # Add COPR and TERRA repos
 #dnf5 -y copr enable avengemedia/dms-git 
