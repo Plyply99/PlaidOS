@@ -4,7 +4,7 @@ COPY build_files /
 #COPY system_files /system_files
 
 # Base Image
-FROM ghcr.io/ublue-os/silverblue-main:latest
+FROM quay.io/fedora/fedora-silverblue:latest
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/silverblue-main:latest
