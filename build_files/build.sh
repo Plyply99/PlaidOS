@@ -25,7 +25,7 @@ dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/ter
 
 ### Install packages
 dnf5 -y install mutter-devel gobject-introspection-devel glib2-devel meson ninja-build gcc-c++ gstreamer1-vaapi gstreamer1-libav #Plaid stuff
-dnf5 -y install gdm akmods steam-devices distrobox mpv input-remapper mangohud vkBasalt adw-gtk3-theme bat bat-extras btop cava chafa emacs eza fastfetch gamemode ghostty htop xwininfo libva-utils 
+dnf5 -y install gdm akmods steam-devices distrobox mpv input-remapper mangohud vkBasalt adw-gtk3-theme bat bat-extras btop cava chafa emacs eza fastfetch gamemode ghostty htop xwininfo libva-utils rpmdevtools kitty
 dnf5 -y install nautilus gnome-software gnome-software-rpm-ostree
 #dnf5 -y install plymouth plymouth-theme-spinner ly rpmdevtools akmods audit pciutils nethogs iotop
 #dnf5 -y install alsa-firmware cups-pk-helper fprintd fprintd-pam i2c-tools kf6-kimageformats khal power-profiles-daemon gnome-software gnome-software-rpm-ostree htop xwininfo glibc-locale-source glibc-langpack-en libva-utils
