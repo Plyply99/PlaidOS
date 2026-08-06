@@ -14,8 +14,8 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_DESC: "PlplyOS, based on Fedora bootc"
-  IMAGE_KEYWORDS: "bootc,fedora,plyplyos"
+  IMAGE_DESC: "PlaidOS, based on Fedora bootc"
+  IMAGE_KEYWORDS: "bootc,fedora,plaidos"
   IMAGE_LOGO_URL: "https://avatars.githubusercontent.com/u/120078124?s=200&v=4"  # Put your own image here for a fancy profile on https://artifacthub.io/!
   IMAGE_NAME: "${{ github.event.repository.name }}"  # output image name, usually same as repo name
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
