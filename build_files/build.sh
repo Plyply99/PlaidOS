@@ -7,7 +7,7 @@ dnf5 -y copr enable ublue-os/akmods
 dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 ### Install packages
-dnf5 -y install bat bat-extras btop cava chafa emacs fastfetch htop input-remapper mangohud mpv nodejs24 vkBasalt
+dnf5 -y install bat bat-extras btop cava chafa emacs fastfetch ghostty htop input-remapper mangohud mpv nodejs24 vkBasalt
 dnf5 clean all
 
 # Ly login manager
