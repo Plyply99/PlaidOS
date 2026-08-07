@@ -1,0 +1,31 @@
+
+# Disable window decorations for better screen real estate
+window-decoration = true
+gtk-titlebar = false 
+
+# Shaders
+#custom-shader = /home/plyply/.config/ghostty/shaders/cineShader-Lava.glsl
+custom-shader-animation = always
+
+theme = dracula
+#theme = dankcolors
+font-family = Maple Mono NF
+font-size = 14
+bold-is-bright = true
+confirm-close-surface = false
+shell-integration = bash 
+gtk-single-instance = false
+linux-cgroup = always
+background = #1e1f29
+#background = #1d1d20
+#background-image = ~/Pictures/village1.jpg
+background-image-fit = cover
+background-opacity = .00
+#background-opacity-cells = true
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor
+#window-width = 110
+#window-height = 30
+scrollbar = never
+#command = fastfetch; bash
