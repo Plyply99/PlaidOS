@@ -6,6 +6,11 @@ set -ouex pipefail
 dnf5 -y copr enable ublue-os/akmods 
 dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
+# Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
+# (the key paths don't exist in BIB's container). Install was already
+# --nogpgcheck, so keep the baked repo usable for disk-image builds.
+sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
+
 ### Install packages
 dnf5 -y install bat bat-extras btop cava chafa emacs fastfetch ghostty htop input-remapper mangohud mpv nodejs24 vkBasalt unzip
 dnf5 clean all
