@@ -1,4 +1,4 @@
-# PlaidOS
+# PlaidOS (WIP)
 
 Fedora atomic with Gnome, Plaid and supporting apps.
 
