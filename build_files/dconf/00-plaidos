@@ -1,0 +1,46 @@
+[org/gnome/shell]
+enabled-extensions=['plaid@plyply99']
+
+[org/gnome/shell/extensions/plaid]
+enabled=true
+gap=10
+single-gap-top=0
+layout='dwindle'
+dwindle-ratio=0.5
+active-border-width=2
+active-border-color=['#bd93f9']
+active-border-color-2=['#50fa7b']
+inactive-border-width=2
+inactive-border-color=['#282a36']
+inactive-border-color-2=['#1e1f29']
+border-radius=30
+rounded-corners=true
+window-blur=true
+window-blur-radius=30
+window-blur-brightness=1.0
+gradient-borders=true
+border-animation-speed=10
+float-windows=['gimp', 'vlc', 'io.github.bugaevc.wl-clipboard', 'org.gnome.settings', 'org.gnome.logs', 'com.vysp3r.protonplus', 'org.gnome.nautilus', 'goverlay', 'com.github.tchx84.flatseal', 'io.github.ilya_zlobintsev.lact', 'be.alexandervanhee.gradia', 'org.gimp.gimp', 'dconf-editor', 'com.saivert.pwvucontrol']
+float-titles=['Picture-in-Picture', 'Steam Settings', 'Steam *']
+min-window-sizes=['Steam:1364x810', 'Friends List:306x540']
+move-focus-left=['<Super>Left']
+move-focus-right=['<Super>Right']
+move-focus-up=['<Super>Up']
+move-focus-down=['<Super>Down']
+swap-left=['<Control><Super>Left']
+swap-right=['<Control><Super>Right']
+swap-up=['<Control><Super>Up']
+swap-down=['<Control><Super>Down']
+resize-shrink-width=['<Control><Alt><Super>Left']
+resize-grow-width=['<Control><Alt><Super>Right']
+resize-shrink-height=['<Control><Alt><Super>Down']
+resize-grow-height=['<Control><Alt><Super>Up']
+toggle-float=['<Shift><Super>v']
+toggle-tiling=['<Shift><Super>t']
+pick-float-window=['<Shift><Control><Super>v']
+dropdown-terminal=['<Shift><Super>Return']
+dropdown-terminal-command='ghostty'
+dropdown-terminal-height=45
+background-app-enabled=true
+background-app='ghostty --config-file=.config/ghostty/bgapp -e cava'
+debug=false
