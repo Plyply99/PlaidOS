@@ -3,7 +3,8 @@
 Fedora atomic with Gnome, Plaid and supporting apps.
 
 
-<img width="3840" height="2160" alt="Screenshot From 2026-08-05 12-19-56" src="https://github.com/user-attachments/assets/073ff5d6-e436-420b-967e-a1027e5a1cd2" />
+
+<img width="3840" height="2160" alt="Screenshot From 2026-08-07 05-01-36" src="https://github.com/user-attachments/assets/bfaa2ef9-ba1c-4040-a2d8-faee6a5128b4" />
 
 
 
