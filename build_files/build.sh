@@ -13,6 +13,7 @@ sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum
 
 ### Install packages
 dnf5 -y install bat bat-extras btop cava chafa emacs fastfetch ghostty htop input-remapper mangohud mpv nodejs24 vkBasalt unzip
+dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 clean all
 
 ### Bake in Plaid (latest release from GitHub)
