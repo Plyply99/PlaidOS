@@ -38,6 +38,28 @@ unzip -q -o /tmp/plaid.zip -d /usr/share/gnome-shell/extensions/plaid@plyply99
 rm -f /tmp/plaid.zip
 glib-compile-schemas /usr/share/gnome-shell/extensions/plaid@plyply99/schemas
 
+### Rebuild the bundled blur library against this image's mutter
+# The release zip ships a .so built for the release machine's mutter; this
+# image may run a different mutter major version, so recompile from the
+# Plaid blur fork (pinned commit) against the local mutter ABI.
+dnf5 -y install --setopt=install_weak_deps=False \
+  meson ninja-build gcc glib2-devel gobject-introspection-devel mutter-devel
+cd /tmp
+git clone https://github.com/Plyply99/Plaid-rounded-blur blur-lib
+cd blur-lib
+git checkout "${BLUR_PIN:-2bce7db}"
+MUTTER_API="$(ls /usr/lib64/libmutter-*.so 2>/dev/null | grep -oE 'mutter-[0-9]+' | head -1 | grep -oE '[0-9]+$')"
+MUTTER_LIBDIR="$(pkg-config --variable=libdir mutter-clutter-$MUTTER_API 2>/dev/null || echo /usr/lib64/mutter-$MUTTER_API)"
+meson setup build -Dc_link_args="-Wl,-rpath,$MUTTER_LIBDIR" -Dmutter-api="$MUTTER_API"
+meson compile -C build
+meson install -C build --destdir /tmp/stage
+cp /tmp/stage/usr/local/lib64/libblur-effect-1.0.so.1.0.0 /usr/share/gnome-shell/extensions/plaid@plyply99/lib/libblur-effect-1.0.so.1
+GIR_FILE=/tmp/stage/usr/local/share/gir-1.0/Blur-1.0.gir
+sed "s|shared-library=\"libblur-effect-1.0.so.1\"|shared-library=\"/usr/share/gnome-shell/extensions/plaid@plyply99/lib/libblur-effect-1.0.so.1\"|" "$GIR_FILE" > /tmp/Blur-abs.gir
+g-ir-compiler /tmp/Blur-abs.gir -o /usr/share/gnome-shell/extensions/plaid@plyply99/lib/Blur-1.0.typelib
+cd /tmp && rm -rf blur-lib /tmp/stage
+dnf5 clean all
+
 ### Fonts
 mkdir -p /usr/share/fonts/plaidos/MapleMono-NF /usr/share/fonts/plaidos/Balsamiq_Sans
 cp /ctx/fonts/MapleMono-NF/*.ttf /usr/share/fonts/plaidos/MapleMono-NF/
