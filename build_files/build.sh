@@ -16,8 +16,10 @@ dnf5 -y install bat bat-extras btop cava chafa emacs fastfetch ghostty htop inpu
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 clean all
 
-### Bake in Plaid (latest release from GitHub)
-mkdir -p /usr/share/gnome-shell/extensions
+### Plaid for new users (installed into ~/.local via /etc/skel)
+# Plaid runs from the user's home directory, not /usr/share. skel copies it
+# into each new user's ~/.local at account creation; the dconf defaults below
+# enable it on first login. Updates flow through the extension's auto-update.
 PLAID_JSON=$(curl -sL https://api.github.com/repos/Plyply99/Plaid/releases/latest)
 PLAID_URL=$(echo "$PLAID_JSON" | python3 -c "
 import json, sys
@@ -31,12 +33,13 @@ if [ -z "$PLAID_URL" ]; then
     echo "ERROR: could not find Plaid release zip" >&2
     exit 1
 fi
-echo "Baking Plaid from: $PLAID_URL"
+echo "Staging Plaid from: $PLAID_URL"
 curl -sL -o /tmp/plaid.zip "$PLAID_URL"
-mkdir -p /usr/share/gnome-shell/extensions/plaid@plyply99
-unzip -q -o /tmp/plaid.zip -d /usr/share/gnome-shell/extensions/plaid@plyply99
+PLAID_SKEL=/etc/skel/.local/share/gnome-shell/extensions/plaid@plyply99
+mkdir -p /etc/skel/.local/share/gnome-shell/extensions
+unzip -q -o /tmp/plaid.zip -d "$PLAID_SKEL"
 rm -f /tmp/plaid.zip
-glib-compile-schemas /usr/share/gnome-shell/extensions/plaid@plyply99/schemas
+glib-compile-schemas "$PLAID_SKEL/schemas"
 
 ### Rebuild the bundled blur library against this image's mutter
 # The release zip ships a .so built for the release machine's mutter; this
@@ -53,10 +56,10 @@ MUTTER_LIBDIR="$(pkg-config --variable=libdir mutter-clutter-$MUTTER_API 2>/dev/
 meson setup build -Dc_link_args="-Wl,-rpath,$MUTTER_LIBDIR" -Dmutter-api="$MUTTER_API"
 meson compile -C build
 meson install -C build --destdir /tmp/stage
-cp /tmp/stage/usr/local/lib64/libblur-effect-1.0.so.1.0.0 /usr/share/gnome-shell/extensions/plaid@plyply99/lib/libblur-effect-1.0.so.1
+cp /tmp/stage/usr/local/lib64/libblur-effect-1.0.so.1.0.0 "$PLAID_SKEL/lib/libblur-effect-1.0.so.1"
 GIR_FILE=/tmp/stage/usr/local/share/gir-1.0/Blur-1.0.gir
-sed "s|shared-library=\"libblur-effect-1.0.so.1\"|shared-library=\"/usr/share/gnome-shell/extensions/plaid@plyply99/lib/libblur-effect-1.0.so.1\"|" "$GIR_FILE" > /tmp/Blur-abs.gir
-g-ir-compiler /tmp/Blur-abs.gir -o /usr/share/gnome-shell/extensions/plaid@plyply99/lib/Blur-1.0.typelib
+sed "s|shared-library=\"libblur-effect-1.0.so.1\"|shared-library=\"$PLAID_SKEL/lib/libblur-effect-1.0.so.1\"|" "$GIR_FILE" > /tmp/Blur-abs.gir
+g-ir-compiler /tmp/Blur-abs.gir -o "$PLAID_SKEL/lib/Blur-1.0.typelib"
 cd /tmp && rm -rf blur-lib /tmp/stage
 dnf5 clean all
 
@@ -66,11 +69,9 @@ cp /ctx/fonts/MapleMono-NF/*.ttf /usr/share/fonts/plaidos/MapleMono-NF/
 cp /ctx/fonts/Balsamiq_Sans/*.ttf /usr/share/fonts/plaidos/Balsamiq_Sans/
 fc-cache -f /usr/share/fonts/plaidos
 
-### Skeleton user config (ghostty, environment.d, bashrc)
+### Skeleton user config (ghostty, bashrc)
 mkdir -p /etc/skel/.config
 cp -r /ctx/skel/.config/ghostty /etc/skel/.config/
-mkdir -p /etc/skel/.config/environment.d
-cp /ctx/skel/.config/environment.d/plaid-blur.conf /etc/skel/.config/environment.d/
 cp /ctx/skel/.bashrc /etc/skel/.bashrc
 
 ### dconf defaults: enable Plaid + reference config
