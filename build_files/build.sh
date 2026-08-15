@@ -6,6 +6,7 @@ set -ouex pipefail
 dnf5 -y copr enable ublue-os/akmods 
 dnf5 -y copr enable cyqsimon/bat-extras
 dnf5 -y copr enable mineiro/ghostty
+dnf5 -y copr enable kmarinos/amdgpu_top 
 #dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
