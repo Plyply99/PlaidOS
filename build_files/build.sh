@@ -4,15 +4,17 @@ set -ouex pipefail
 
 # Additional repos
 dnf5 -y copr enable ublue-os/akmods 
-dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y copr enable cyqsimon/bat-extras
+dnf5 -y copr enable mineiro/ghostty
+#dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
 # (the key paths don't exist in BIB's container). Install was already
 # --nogpgcheck, so keep the baked repo usable for disk-image builds.
-sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
+#sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
 
 ### Install packages
-dnf5 -y install akmods bat bat-extras btop cava chafa emacs fastfetch gh ghostty htop input-remapper kernel-devel mangohud mpv nodejs24 rpmdevtools vkBasalt unzip --allowerasing
+dnf5 -y install akmods bat bat-extras btop cava chafa emacs fastfetch gh ghostty-git htop input-remapper kernel-devel mangohud mpv nodejs24 rpmdevtools vkBasalt --allowerasing
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 clean all
 
