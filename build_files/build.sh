@@ -6,7 +6,6 @@ set -ouex pipefail
 dnf5 -y copr enable ublue-os/akmods 
 dnf5 -y copr enable cyqsimon/bat-extras
 dnf5 -y copr enable mineiro/ghostty
-dnf5 -y copr enable kmarinos/amdgpu_top 
 #dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
@@ -16,7 +15,7 @@ dnf5 -y copr enable kmarinos/amdgpu_top
 
 ### Install packages
 dnf5 -y install akmods bat bat-extras btop cava chafa emacs fastfetch gh ghostty-git htop input-remapper kernel-devel mangohud mpv nodejs24 rpmdevtools vkBasalt --allowerasing
-dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
+dnf5 -y install nethogs iotop # Astra Monitor extension
 dnf5 clean all
 
 ### Plaid for new users (installed into ~/.local via /etc/skel)
