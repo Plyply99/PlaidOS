@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-dnf5 -y install dnf5-plugins
+#dnf5 -y install dnf5-plugins
 
 dnf5 -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
@@ -23,7 +23,7 @@ dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/ter
 sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
 
 ### Install packages
-dnf5 -y install akmods bat bat-extras btop cava chafa emacs fastfetch gdm gh ghostty gnome-software gnome-software-rpm-ostree htop input-remapper kernel-devel kitty mangohud mpv nodejs24 rpmdevtools vkBasalt --allowerasing
+dnf5 -y install adw-gtk3-theme akmods bat bat-extras btop cava chafa distrobox emacs fastfetch fzf gdm gh ghostty gnome-software gnome-software-rpm-ostree htop input-remapper kernel-devel kitty mangohud mpv nodejs24 rpmdevtools vkBasalt xwininfo --allowerasing
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 clean all
 
