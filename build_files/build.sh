@@ -4,8 +4,6 @@ set -ouex pipefail
 
 #dnf5 -y install dnf5-plugins
 dnf5 -y config-manager setopt updates-testing.enabled=true
-dnf5 -y config-manager setopt rpmfusion-free-updates-testing.enabled=1
-#dnf5 -y config-manager setopt rpmfusion-nonfree-updates-testing.enabled=1
 dnf5 -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing --enablerepo=rpmfusion-free-updates-testing
