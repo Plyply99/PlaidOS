@@ -29,6 +29,25 @@ dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 -y remove firefox
 dnf5 clean all
 
+### Initramfs: generate explicitly and fail the build if absent.
+# 2026-09-13: the base image/tooling shipped latest.20260913 without an
+# initramfs -> the deployment booted vmlinuz-only -> instant LUKS-root kernel
+# panic at boot start (finalize-staged reported success with a 19.0 MB bootfs
+# calculation = vmlinuz only, no dracut run ever logged). Never trust the
+# base to provide it again; regenerate here and fail loudly if anything is off.
+KERNEL_RELEASE="$(rpm -q kernel --qf '%{VERSION}-%{RELEASE}.%{ARCH}' | head -1)"
+if [ -z "${KERNEL_RELEASE}" ]; then
+    echo "ERROR: no kernel package found in image" >&2
+    exit 1
+fi
+INITRAMFS_IMG="/usr/lib/modules/${KERNEL_RELEASE}/initramfs.img"
+command -v dracut >/dev/null || dnf5 -y install dracut
+dracut -f "${INITRAMFS_IMG}" "${KERNEL_RELEASE}" \
+    || { echo "ERROR: dracut failed for ${KERNEL_RELEASE}" >&2; exit 1; }
+test -s "${INITRAMFS_IMG}" \
+    || { echo "ERROR: initramfs missing/empty, aborting build" >&2; exit 1; }
+echo "initramfs OK: $(du -h "${INITRAMFS_IMG}" | cut -f1) for ${KERNEL_RELEASE}"
+
 ### Plaid for new users (installed into ~/.local via /etc/skel)
 # Plaid runs from the user's home directory, not /usr/share. skel copies it
 # into each new user's ~/.local at account creation; the dconf defaults below
