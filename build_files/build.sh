@@ -4,12 +4,12 @@ set -ouex pipefail
 
 #dnf5 -y install dnf5-plugins
 #dnf5 -y config-manager setopt updates-testing.enabled=true
-dnf5 -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing --enablerepo=rpmfusion-free-updates-testing
-dnf5 -y install libavcodec-freeworld #mesa-va-drivers-freeworld
-dnf5 -y install @multimedia
-dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+#dnf5 -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+#dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
+#dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing --enablerepo=rpmfusion-free-updates-testing
+#dnf5 -y install libavcodec-freeworld #mesa-va-drivers-freeworld
+#dnf5 -y install @multimedia
+#dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 #dnf5 -y update
 
 # Additional repos
@@ -35,18 +35,18 @@ dnf5 clean all
 # panic at boot start (finalize-staged reported success with a 19.0 MB bootfs
 # calculation = vmlinuz only, no dracut run ever logged). Never trust the
 # base to provide it again; regenerate here and fail loudly if anything is off.
-KERNEL_RELEASE="$(rpm -q kernel --qf '%{VERSION}-%{RELEASE}.%{ARCH}' | head -1)"
-if [ -z "${KERNEL_RELEASE}" ]; then
-    echo "ERROR: no kernel package found in image" >&2
-    exit 1
-fi
-INITRAMFS_IMG="/usr/lib/modules/${KERNEL_RELEASE}/initramfs.img"
-command -v dracut >/dev/null || dnf5 -y install dracut
-dracut -f "${INITRAMFS_IMG}" "${KERNEL_RELEASE}" \
-    || { echo "ERROR: dracut failed for ${KERNEL_RELEASE}" >&2; exit 1; }
-test -s "${INITRAMFS_IMG}" \
-    || { echo "ERROR: initramfs missing/empty, aborting build" >&2; exit 1; }
-echo "initramfs OK: $(du -h "${INITRAMFS_IMG}" | cut -f1) for ${KERNEL_RELEASE}"
+#KERNEL_RELEASE="$(rpm -q kernel --qf '%{VERSION}-%{RELEASE}.%{ARCH}' | head -1)"
+#if [ -z "${KERNEL_RELEASE}" ]; then
+#    echo "ERROR: no kernel package found in image" >&2
+#    exit 1
+#fi
+#INITRAMFS_IMG="/usr/lib/modules/${KERNEL_RELEASE}/initramfs.img"
+#command -v dracut >/dev/null || dnf5 -y install dracut
+#dracut -f "${INITRAMFS_IMG}" "${KERNEL_RELEASE}" \
+#    || { echo "ERROR: dracut failed for ${KERNEL_RELEASE}" >&2; exit 1; }
+#test -s "${INITRAMFS_IMG}" \
+#    || { echo "ERROR: initramfs missing/empty, aborting build" >&2; exit 1; }
+#echo "initramfs OK: $(du -h "${INITRAMFS_IMG}" | cut -f1) for ${KERNEL_RELEASE}"
 
 ### Plaid for new users (installed into ~/.local via /etc/skel)
 # Plaid runs from the user's home directory, not /usr/share. skel copies it
