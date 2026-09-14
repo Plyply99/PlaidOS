@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-dnf5 -y install dnf5-plugins
+#dnf5 -y install dnf5-plugins
 #dnf5 -y config-manager setopt updates-testing.enabled=true
 #dnf5 -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 #dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
@@ -22,10 +22,13 @@ dnf5 -y install dnf5-plugins
 # (the key paths don't exist in BIB's container). Install was already
 # --nogpgcheck, so keep the baked repo usable for disk-image builds.
 #sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
+sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra.repo   
+sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra-extras.repo   
+
 
 ### Install packages
-dnf5 -y install bat bat-extras btop cava chafa emacs eza fastfetch fzf gh ghostty gnome-software gnome-software-rpm-ostree kernel-devel kitty mangohud mpv nodejs24 rpmdevtools xwininfo
-#dnf5 -y install adw-gtk3-theme akmods distrobox htop gdm input-remapper libva-utils nautilus steam-devices vkBasalt 
+dnf5 -y install bat bat-extras cava chafa emacs eza fastfetch gh ghostty gnome-software gnome-software-rpm-ostree kitty mangohud mpv nodejs24 vkBasalt 
+#dnf5 -y install adw-gtk3-theme akmods btop distrobox fastfetch fzf htop gdm input-remapper kernel-devel libva-utils nautilus rpm-devtools steam-devices vkBasalt xwininfo
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 -y remove firefox bazaar
 dnf5 clean all
