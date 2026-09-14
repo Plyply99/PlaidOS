@@ -18,6 +18,8 @@ set -ouex pipefail
 #dnf5 -y copr enable mineiro/ghostty
 #dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
+dnf5 -y install mangohud
+
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
 # (the key paths don't exist in BIB's container). Install was already
 # --nogpgcheck, so keep the baked repo usable for disk-image builds.
@@ -27,7 +29,7 @@ sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra.repo
 
 
 ### Install packages
-dnf5 -y install bat bat-extras cava chafa emacs eza gh ghostty gnome-software gnome-software-rpm-ostree kitty mangohud mpv nodejs24 
+dnf5 -y install bat bat-extras cava chafa emacs eza gh ghostty gnome-software gnome-software-rpm-ostree kitty mpv nodejs24 
 #dnf5 -y install adw-gtk3-theme akmods btop distrobox fastfetch fzf htop gdm input-remapper kernel-devel libva-utils nautilus rpm-devtools steam-devices vkBasalt xwininfo
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 -y remove firefox bazaar
