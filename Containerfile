@@ -4,11 +4,12 @@ COPY build_files /
 #COPY system_files /system_files
 
 # Base Image
-FROM quay.io/fedora-ostree-desktops/silverblue:44
+FROM ghcr.io/ublue-os/bazzite-gnome:testing
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/silverblue-main:latest
 # FROM ghcr.io/ublue-os/bazzite:latest
+# FROM ghcr.io/ublue-os/bazzite-gnome:testing
 # FROM ghcr.io/ublue-os/bluefin-nvidia:stable
 # FROM ghcr.io/ublue-os/base-main:latest
 # FROM quay.io/fedora/fedora-bootc:latest
