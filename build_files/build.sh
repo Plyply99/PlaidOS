@@ -2,7 +2,7 @@
 
 set -ouex pipefail
 
-#dnf5 -y install dnf5-plugins
+dnf5 -y install dnf5-plugins
 #dnf5 -y config-manager setopt updates-testing.enabled=true
 #dnf5 -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 #dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
@@ -16,12 +16,12 @@ set -ouex pipefail
 #dnf5 -y copr enable ublue-os/akmods 
 #dnf5 -y copr enable cyqsimon/bat-extras
 #dnf5 -y copr enable mineiro/ghostty
-dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+#dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
 # (the key paths don't exist in BIB's container). Install was already
 # --nogpgcheck, so keep the baked repo usable for disk-image builds.
-sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
+#sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
 
 ### Install packages
 dnf5 -y install bat bat-extras btop cava chafa emacs eza fastfetch fzf gh ghostty gnome-software gnome-software-rpm-ostree kernel-devel kitty mangohud mpv nodejs24 rpmdevtools xwininfo
