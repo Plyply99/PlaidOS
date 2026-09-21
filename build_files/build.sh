@@ -27,7 +27,8 @@ sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra.repo
 
 
 ### Install packages
-dnf5 -y install bat bat-extras cava chafa emacs eza gh ghostty gnome-software gnome-software-rpm-ostree htop kitty mpv nodejs24 
+dnf5 -y install qemu-device-display-virtio-gpu-gl qemu-device-display-virtio-gpu-pci-gl qemu-system-x86-core qemu-ui-gtk virglrenderer # For VM testing
+dnf5 -y install bat bat-extras cava chafa emacs eza gamemode gh ghostty gnome-software gnome-software-rpm-ostree htop kitty mpv nodejs24 
 #dnf5 -y install adw-gtk3-theme akmods btop distrobox fastfetch fzf gdm input-remapper kernel-devel libva-utils mangohud nautilus rpm-devtools steam-devices vkBasalt xwininfo
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
 dnf5 -y remove firefox bazaar
