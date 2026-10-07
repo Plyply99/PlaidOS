@@ -21,7 +21,7 @@ dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/ter
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
 # (the key paths don't exist in BIB's container). Install was already
 # --nogpgcheck, so keep the baked repo usable for disk-image builds.
-sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
+#sed -i 's/^gpgcheck=1/gpgcheck=0/; s/^repo_gpgcheck=1/repo_gpgcheck=0/' /etc/yum.repos.d/terra.repo
 #sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra.repo   
 #sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra-extras.repo   
 
