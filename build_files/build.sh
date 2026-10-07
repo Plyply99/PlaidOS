@@ -25,7 +25,6 @@ dnf5 -y copr enable mineiro/ghostty
 #sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra.repo   
 #sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra-extras.repo   
 
-
 ### Install packages
 dnf5 -y install qemu-device-display-virtio-gpu-gl qemu-device-display-virtio-gpu-pci-gl qemu-system-x86-core qemu-ui-gtk virglrenderer # For VM testing
 dnf5 -y install bat bat-extras cava chafa emacs eza gamemode gh ghostty gnome-software gnome-software-rpm-ostree htop kitty mpv nodejs24 
@@ -33,51 +32,6 @@ dnf5 -y install adw-gtk3-theme akmods btop distrobox fastfetch fzf gdm input-rem
 dnf5 -y install nethogs iotop # amdgpu_top # Astra Monitor extension
 dnf5 -y remove firefox # bazaar
 dnf5 clean all
-
-### Plaid for new users (installed into ~/.local via /etc/skel)
-# Plaid runs from the user's home directory, not /usr/share. skel copies it
-# into each new user's ~/.local at account creation; the dconf defaults below
-# enable it on first login. Updates flow through the extension's auto-update.
-PLAID_JSON=$(curl -sL https://api.github.com/repos/Plyply99/Plaid/releases/latest)
-PLAID_URL=$(echo "$PLAID_JSON" | python3 -c "
-import json, sys
-d = json.load(sys.stdin)
-for a in d.get('assets', []):
-    if a['name'] == 'plaid@plyply99.zip':
-        print(a['browser_download_url'])
-        break
-")
-if [ -z "$PLAID_URL" ]; then
-    echo "ERROR: could not find Plaid release zip" >&2
-    exit 1
-fi
-echo "Staging Plaid from: $PLAID_URL"
-curl -sL -o /tmp/plaid.zip "$PLAID_URL"
-PLAID_SKEL=/etc/skel/.local/share/gnome-shell/extensions/plaid@plyply99
-mkdir -p /etc/skel/.local/share/gnome-shell/extensions
-unzip -q -o /tmp/plaid.zip -d "$PLAID_SKEL"
-rm -f /tmp/plaid.zip
-glib-compile-schemas "$PLAID_SKEL/schemas"
-
-### Fonts
-mkdir -p /usr/share/fonts/plaidos/MapleMono-NF /usr/share/fonts/plaidos/Balsamiq_Sans
-cp /ctx/fonts/MapleMono-NF/*.ttf /usr/share/fonts/plaidos/MapleMono-NF/
-cp /ctx/fonts/Balsamiq_Sans/*.ttf /usr/share/fonts/plaidos/Balsamiq_Sans/
-fc-cache -f /usr/share/fonts/plaidos
-
-### Skeleton user config (ghostty, bashrc)
-mkdir -p /etc/skel/.config
-cp -r /ctx/skel/.config/ghostty /etc/skel/.config/
-cp /ctx/skel/.bashrc /etc/skel/.bashrc
-
-### dconf defaults: enable Plaid + reference config
-mkdir -p /etc/dconf/profile /etc/dconf/db/local.d
-cat > /etc/dconf/profile/user <<'EOF'
-user-db:user
-system-db:local
-EOF
-cp /ctx/dconf/00-plaidos /etc/dconf/db/local.d/00-plaidos
-dconf update
 
 # Set os-release
 HOME_URL="https://github.com/Plyply99/PlaidOS"
