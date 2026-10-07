@@ -14,9 +14,9 @@ dnf5 -y update
 
 # Additional repos
 dnf5 -y copr enable ublue-os/akmods 
-#dnf5 -y copr enable cyqsimon/bat-extras
-#dnf5 -y copr enable mineiro/ghostty
-dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y copr enable cyqsimon/bat-extras
+dnf5 -y copr enable mineiro/ghostty
+#dnf -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Terra uses file:// gpg keys that break bootc-image-builder's ISO depsolve
 # (the key paths don't exist in BIB's container). Install was already
