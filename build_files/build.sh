@@ -9,7 +9,7 @@ dnf5 -y install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld --allowerasing --enablerepo=rpmfusion-free-updates-testing
 dnf5 -y install libavcodec-freeworld #mesa-va-drivers-freeworld
 dnf5 -y install @multimedia
-dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+#dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 dnf5 -y update
 
 # Additional repos
@@ -27,11 +27,11 @@ dnf5 -y copr enable mineiro/ghostty
 #sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/terra-extras.repo   
 
 ### Install packages
-dnf5 -y install qemu-device-display-virtio-gpu-gl qemu-device-display-virtio-gpu-pci-gl qemu-system-x86-core qemu-ui-gtk virglrenderer # For VM testing
-dnf5 -y install bat bat-extras cava chafa emacs eza gh ghostty gnome-software gnome-software-rpm-ostree htop kitty mpv nodejs24 
+#dnf5 -y install qemu-device-display-virtio-gpu-gl qemu-device-display-virtio-gpu-pci-gl qemu-system-x86-core qemu-ui-gtk virglrenderer # For VM testing
+dnf5 -y install bat bat-extras cava chafa emacs eza ffmpeg gh ghostty gnome-software gnome-software-rpm-ostree htop kitty mpv nodejs24 
 dnf5 -y install adw-gtk3-theme akmods btop distrobox fastfetch fzf gdm input-remapper kernel-devel libva-utils mangohud nautilus rpmdevtools steam steam-devices vkBasalt xwininfo
 dnf5 -y install nethogs iotop amdgpu_top # Astra Monitor extension
-#dnf5 -y remove firefox bazaar
+#dnf5 -y remove firefox
 dnf5 clean all
 
 # Set os-release
